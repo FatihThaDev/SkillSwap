@@ -7,7 +7,7 @@ Built with **HTML, CSS, JavaScript (Frontend)** and **PHP with MySQL (Backend)**
 
 ---
 
-### Features
+### ⭐ Features
 
 - **User Roles**:  
   - *Regular Users*: Create profiles, post skills, search, and message others.  
