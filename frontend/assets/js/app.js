@@ -5,6 +5,7 @@
       new Route('courses', 'courses.html'),
       new Route('login', 'login.html'),
       new Route('register', 'register.html'),
+      new Route('about', 'about.html'),
     ]);
   }
 
