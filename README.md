@@ -45,6 +45,9 @@ Built with **HTML, CSS, JavaScript (Frontend)** and **PHP with MySQL (Backend)**
 
 ---
 
+### Single-Page Application Template
+- The code for the SPA was inspired by: https://github.com/BoozJames/plain-js-SPA
+
 ### 🎓 Purpose
 
 This project was developed for the course ``` IT 2001 - Web Programming``` to demonstrate full-stack development knowledge using HTML, CSS and JavaScript for frontend, and PHP with MySQL for backend development.
