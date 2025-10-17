@@ -10,7 +10,7 @@ Built with **HTML, CSS, JavaScript (Frontend)** and **PHP with MySQL (Backend)**
 ### ⭐ Features
 
 - **User Roles**:  
-  - *Regular Users*: Create profiles, post skills, search, and message others.  
+  - *Regular Users*: Create profiles, post skills, search, and chat with AI.  
   - *Admins*: Moderate content, manage users, and oversee platform activity.
 
 - **Skill Exchange System**:  
@@ -38,11 +38,15 @@ Built with **HTML, CSS, JavaScript (Frontend)** and **PHP with MySQL (Backend)**
 
 - `users` – Stores user data and roles
 - `skills` – Lists of offered/wanted skills
-- `messages` – Private messages between users
+- `courses` – Data about courses offered on the platform
 - `categories` – Skill categories
-- `likes` – Number of likes a course received
+- `badges` – Badges which administrators put on courses (new, popular)
+- `user_courses` - Intermediary table which unites `users` and `courses` tables
 
 ---
+
+### Single-Page Application Template
+- The code for the SPA was inspired by: https://github.com/BoozJames/plain-js-SPA
 
 ### 🎓 Purpose
 
