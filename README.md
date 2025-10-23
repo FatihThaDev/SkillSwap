@@ -17,9 +17,6 @@ Built with **HTML, CSS, JavaScript (Frontend)** and **PHP with MySQL (Backend)**
   Post what you’re offering and what you’d like to learn. 
   For example: “I’ll teach programming in exchange for English lessons.”
 
-- **Messaging**:  
-  Communicate with an AI assistant which can help you solve problems you are unfamiliar with.
-
 - **Secure Authentication**:  
   Login, registration, and session management with PHP.
 
