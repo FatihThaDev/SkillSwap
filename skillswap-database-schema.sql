@@ -35,7 +35,6 @@ CREATE TABLE `courses` (
     `category_id` INT UNSIGNED NOT NULL,
     `title` VARCHAR(255) NOT NULL,
     `description` TEXT NOT NULL,
-    `badge` ENUM('none', 'new', 'popular') NOT NULL DEFAULT 'none',
     FOREIGN KEY (`instructor_id`) REFERENCES `users`(`id`) ,
     FOREIGN KEY (`category_id`) REFERENCES `categories`(`id`)
 );
