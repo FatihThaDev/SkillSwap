@@ -51,9 +51,8 @@ $newCourse = [
   'instructor_id' => $addedUser['id'],
   'category_id' => $addedCategory['id'],
   'title' => 'Introduction to PHP ' . time(),
-  'description' => 'A beginner-friendly course on PHP.',
-  'badge' => 1
-];
+  'description' => 'A beginner-friendly course on PHP.'
+  ];
 $addedCourse = $courseDao->add($newCourse);
 echo "<pre>";
 print_r($addedCourse);
