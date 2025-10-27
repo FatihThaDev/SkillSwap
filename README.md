@@ -10,15 +10,12 @@ Built with **HTML, CSS, JavaScript (Frontend)** and **PHP with MySQL (Backend)**
 ### ⭐ Features
 
 - **User Roles**:  
-  - *Regular Users*: Create profiles, post skills, search, and chat with AI.  
+  - *Regular Users*: Create profiles, post skills and search.  
   - *Admins*: Moderate content, manage users, and oversee platform activity.
 
 - **Skill Exchange System**:  
   Post what you’re offering and what you’d like to learn. 
   For example: “I’ll teach programming in exchange for English lessons.”
-
-- **Messaging**:  
-  Communicate with an AI assistant which can help you solve problems you are unfamiliar with.
 
 - **Secure Authentication**:  
   Login, registration, and session management with PHP.
