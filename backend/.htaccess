@@ -1,0 +1,8 @@
+#Enables the URL rewriting engine
+RewriteEngine On
+# Ensures the requested URL is not an existing fie
+RewriteCond %{REQUEST_FILENAME} !-f
+#Ensures the requested URL is not an existing directory
+RewriteCond %{REQUEST_FILENAME} !-d
+# Redirects all requests to index.php, preserving query 
+RewriteRule ^(.*)$ index.php [QSA,L]

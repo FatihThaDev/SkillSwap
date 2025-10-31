@@ -65,6 +65,26 @@ class CourseService {
         return $this->courseDao->delete_course($id);
     }
 
+    public function delete_course_as_user($course_id, $user_id) {
+        if (!is_numeric($course_id) || $course_id <= 0) {
+            return ['success' => false, 'message' => 'Invalid course ID'];
+        }
+        if (!is_numeric($user_id) || $user_id <= 0) {
+            return ['success' => false, 'message' => 'Invalid user ID'];
+        }
+
+        $course = $this->courseDao->getById($course_id);
+        if (!$course) {
+            return ['success' => false, 'message' => 'Course not found'];
+        }
+        if ((int)$course['instructor_id'] !== (int)$user_id) {
+            return ['success' => false, 'message' => 'Not authorized to delete this course'];
+        }
+
+        $deleted = $this->courseDao->delete_course_by_instructor($course_id, $user_id);
+        return $deleted ? ['success' => true] : ['success' => false, 'message' => 'Delete failed'];
+    }
+
     private function validate_course_data($courseData) {
         $errors = [];
         

@@ -57,7 +57,6 @@ class UserService {
         return $this->userCoursesDao->get_users_by_course($course_id);
     }
 
-    // User validation methods
     public function validate_user_data($userData) {
         $errors = [];
         

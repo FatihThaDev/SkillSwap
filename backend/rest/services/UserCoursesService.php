@@ -37,7 +37,6 @@ class UserCoursesService {
     }
 
     public function unenroll_from_course($user_id, $course_id) {
-        // Validate input parameters
         if (!is_numeric($user_id) || $user_id <= 0) {
             return ['success' => false, 'message' => 'Invalid user ID'];
         }

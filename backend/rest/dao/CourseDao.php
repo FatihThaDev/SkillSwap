@@ -22,4 +22,11 @@ class CourseDao extends BaseDao
   {
     return $this->delete($course_id);
   }
+
+  public function delete_course_by_instructor($course_id, $instructor_id)
+  {
+    $stmt = $this->connection->prepare("DELETE FROM courses WHERE id = :id AND instructor_id = :instructor_id");
+    $stmt->execute(['id' => $course_id, 'instructor_id' => $instructor_id]);
+    return $stmt->rowCount() > 0;
+  }
 }
