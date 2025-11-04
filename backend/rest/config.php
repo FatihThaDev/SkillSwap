@@ -16,11 +16,11 @@ class Config
   }
   public static function DB_USER()
   {
-    return 'username123'; // add your database username here
+    return 'root'; // add your database username here
   }
   public static function DB_PASSWORD()
   {
-    return 'password123'; // add your database password here
+    return 'root'; // add your database password here
   }
   public static function DB_HOST()
   {

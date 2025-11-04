@@ -26,6 +26,36 @@ class UserService {
         return $this->userDao->getById($id);
     }
 
+    public function create_user($userData) {
+        $validation = $this->validate_user_data($userData);
+        if (!$validation['success']) {
+            return ['success' => false, 'errors' => $validation['errors']];
+        }
+
+        if ($this->userDao->get_user_by_username($userData['username'])) {
+            return ['success' => false, 'message' => 'Username already exists'];
+        }
+        if ($this->userDao->get_user_by_email($userData['email'])) {
+            return ['success' => false, 'message' => 'Email already exists'];
+        }
+
+        $role = isset($userData['role']) && in_array($userData['role'], ['user', 'admin']) ? $userData['role'] : 'user';
+
+        $hashedPassword = password_hash($userData['password'], PASSWORD_DEFAULT);
+
+        $entity = [
+            'name' => trim($userData['name']),
+            'username' => trim($userData['username']),
+            'email' => strtolower(trim($userData['email'])),
+            'password' => $hashedPassword,
+            'role' => $role
+        ];
+
+        $created = $this->userDao->add($entity);
+        unset($created['password']);
+        return ['success' => true, 'user' => $created];
+    }
+
     public function delete_course($course_id) {
         if (!is_numeric($course_id) || $course_id <= 0) {
             return ['success' => false, 'message' => 'Invalid course ID'];
