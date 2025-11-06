@@ -8,7 +8,7 @@ class Config
 {
   public static function DB_NAME()
   {
-    return 'SkillSwap'; // enter your database name here
+    return 'DBName'; // enter your database name here
   }
   public static function DB_PORT()
   {
@@ -16,11 +16,11 @@ class Config
   }
   public static function DB_USER()
   {
-    return 'root'; // add your database username here
+    return 'user123'; // add your database username here
   }
   public static function DB_PASSWORD()
   {
-    return 'root'; // add your database password here
+    return 'password123'; // add your database password here
   }
   public static function DB_HOST()
   {
