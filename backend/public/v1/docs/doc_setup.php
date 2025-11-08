@@ -1,23 +1,25 @@
 <?php
-
 /**
  * @OA\Info(
- *   title="API",
- *   description="SkillSwap API",
- *   version="1.0",
- *   @OA\Contact(
- *     email="fatihtheg123@protonmail.com",
- *     name="Web Programming"
- *   )
- * ),
+ *     title="API",
+ *     description="SkillSwap API",
+ *     version="1.0",
+ *     @OA\Contact(
+ *         email="fatihtheg123@protonmail.com",
+ *         name="Web Programming"
+ *     )
+ * )
+ * 
  * @OA\Server(
- *     url=LOCALSERVER,
- *     description="API server"
- * ),
+ *     url="http://localhost/SkillSwap/backend",
+ *     description="Local API server"
+ * )
+ * 
  * @OA\Server(
- *     url=PRODSERVER,
- *     description="API server"
- * ),
+ *     url="prodserver",
+ *     description="Production API server"
+ * )
+ * 
  * @OA\SecurityScheme(
  *     securityScheme="ApiKey",
  *     type="apiKey",
