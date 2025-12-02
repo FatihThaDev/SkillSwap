@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../services/CourseService.php';
+require_once __DIR__ . '/../../data/Roles.php';
 
 use OpenApi\Annotations as OA;
 
@@ -15,6 +16,8 @@ $courseService = new CourseService();
  * )
  */
 Flight::route('GET /courses', function () use ($courseService) {
+  Flight::auth();
+  Flight::auth_middleware()->authorizeRoles([Roles::ADMIN]);
   Flight::json($courseService->get_all_courses());
 });
 
@@ -89,6 +92,8 @@ Flight::route('GET /instructors/@instructor_id/courses', function ($instructor_i
  * )
  */
 Flight::route('POST /courses', function () use ($courseService) {
+  Flight::auth();
+  Flight::auth_middleware()->authorizeRoles([Roles::USER]);
   $data = Flight::request()->data->getData();
   Flight::json($courseService->create_course($data));
 });
@@ -133,6 +138,22 @@ Flight::route('PUT /courses/@id', function ($id) use ($courseService) {
  * )
  */
 Flight::route('DELETE /courses/@id', function ($id) use ($courseService) {
+  Flight::auth();
+  $user = Flight::get('user');
+  
+  $course = $courseService->get_course_by_id($id);
+  
+  if (!$course || $course === false || (isset($course['success']) && !$course['success'])) {
+    Flight::halt(404, 'Course not found');
+  }
+  
+  $isAdmin = $user->role === Roles::ADMIN;
+  $isInstructor = isset($course['instructor_id']) && (int)$course['instructor_id'] === (int)$user->id;
+  
+  if (!$isAdmin && !$isInstructor) {
+    Flight::halt(403, 'Forbidden: Only admin or course creator can delete this course');
+  }
+  
   Flight::json($courseService->delete_course($id));
 });
 

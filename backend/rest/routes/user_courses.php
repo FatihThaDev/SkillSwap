@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../services/UserCoursesService.php';
+require_once __DIR__ . '/../../data/Roles.php';
 
 use OpenApi\Annotations as OA;
 
@@ -22,6 +23,8 @@ $userCoursesService = new UserCoursesService();
  * )
  */
 Flight::route('GET /users/@user_id/courses', function ($user_id) use ($userCoursesService) {
+  Flight::auth();
+  Flight::auth_middleware()->authorizeRoles([Roles::ADMIN]);
   Flight::json($userCoursesService->get_user_courses($user_id));
 });
 
@@ -38,6 +41,8 @@ Flight::route('GET /users/@user_id/courses', function ($user_id) use ($userCours
  * )
  */
 Flight::route('POST /users/@user_id/courses/@course_id', function ($user_id, $course_id) use ($userCoursesService) {
+  Flight::auth();
+  Flight::auth_middleware()->authorizeRoles([Roles::USER]);
   Flight::json($userCoursesService->enroll_in_course($user_id, $course_id));
 });
 
@@ -53,6 +58,13 @@ Flight::route('POST /users/@user_id/courses/@course_id', function ($user_id, $co
  * )
  */
 Flight::route('DELETE /users/@user_id/courses/@course_id', function ($user_id, $course_id) use ($userCoursesService) {
+  Flight::auth();
+  $user = Flight::get('user');
+  
+  if ((int)$user_id !== (int)$user->id) {
+    Flight::halt(403, 'Forbidden: You can only unenroll yourself from courses');
+  }
+  
   Flight::json($userCoursesService->unenroll_from_course($user_id, $course_id));
 });
 
@@ -68,5 +80,7 @@ Flight::route('DELETE /users/@user_id/courses/@course_id', function ($user_id, $
  * )
  */
 Flight::route('GET /users/@user_id/courses/@course_id/enrolled', function ($user_id, $course_id) use ($userCoursesService) {
+  Flight::auth();
+  Flight::auth_middleware()->authorizeRoles([Roles::ADMIN]);
   Flight::json($userCoursesService->is_enrolled($user_id, $course_id));
 });

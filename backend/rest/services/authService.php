@@ -1,7 +1,7 @@
 <?php
 
 require_once 'BaseService.php';
-require_once __DIR__ . '/../dao/AuthDao.php';
+require_once __DIR__ . '/../dao/authDao.php';
 require_once __DIR__ . '/../config.php';
 
 use Firebase\JWT\JWT;
@@ -24,7 +24,22 @@ class AuthService extends BaseService {
             return ['success' => false, 'error' => 'Email and password are required.'];
         }
 
-        $email_exists = $this->auth_dao->get_user_by_email($entity['email']);
+        $email = $entity['email'];
+        $localPart = explode('@', $email)[0];
+
+        if (empty($entity['name'])) {
+            $entity['name'] = $localPart;
+        }
+
+        if (empty($entity['username'])) {
+            $entity['username'] = $localPart . '_' . time();
+        }
+
+        if (empty($entity['role'])) {
+            $entity['role'] = 'user';
+        }
+
+        $email_exists = $this->auth_dao->get_user_by_email($email);
 
         if($email_exists){
             return ['success' => false, 'error' => 'Email already registered.'];

@@ -46,7 +46,7 @@ Flight::group('/auth', function() {
      *     )
      * )
      */
-    Flight::route("POST /auth/register", function () {
+    Flight::route("POST /register", function () {
         $data = Flight::request()->data->getData();
 
         $response = Flight::auth_service()->register($data);
@@ -80,7 +80,7 @@ Flight::group('/auth', function() {
      *      )
      * )
      */
-    Flight::route('POST /auth/login', function() {
+    Flight::route('POST /login', function() {
         $data = Flight::request()->data->getData();
 
         $response = Flight::auth_service()->login($data);
