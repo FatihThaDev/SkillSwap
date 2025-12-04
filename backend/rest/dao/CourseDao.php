@@ -8,6 +8,15 @@ class CourseDao extends BaseDao
     parent::__construct("courses");
   }
 
+  public function getAll()
+  {
+    $query = "SELECT c.*, cat.name as category, u.name as instructor_name 
+              FROM courses c 
+              LEFT JOIN categories cat ON c.category_id = cat.id 
+              LEFT JOIN users u ON c.instructor_id = u.id";
+    return $this->query($query, []);
+  }
+
   public function get_courses_by_category($category_id)
   {
     return $this->query("SELECT * FROM courses WHERE category_id = :category_id", ['category_id' => $category_id]);

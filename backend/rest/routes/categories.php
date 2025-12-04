@@ -21,6 +21,11 @@ Flight::route('GET /categories', function () use ($categoryService) {
   Flight::json($categoryService->get_all_categories());
 });
 
+Flight::route('GET /categories/public', function () use ($categoryService) {
+  Flight::auth();
+  Flight::json($categoryService->get_all_categories());
+});
+
 /**
  * @OA\Get(
  *   path="/categories/{id}",

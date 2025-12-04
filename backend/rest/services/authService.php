@@ -24,20 +24,15 @@ class AuthService extends BaseService {
             return ['success' => false, 'error' => 'Email and password are required.'];
         }
 
-        $email = $entity['email'];
+        $email = strtolower(trim($entity['email']));
         $localPart = explode('@', $email)[0];
 
-        if (empty($entity['name'])) {
-            $entity['name'] = $localPart;
-        }
+        $name = !empty($entity['name']) ? trim($entity['name']) : $localPart;
+        $username = !empty($entity['username'])
+            ? trim($entity['username'])
+            : $localPart . '_' . time();
 
-        if (empty($entity['username'])) {
-            $entity['username'] = $localPart . '_' . time();
-        }
-
-        if (empty($entity['role'])) {
-            $entity['role'] = 'user';
-        }
+        $role = !empty($entity['role']) ? $entity['role'] : 'user';
 
         $email_exists = $this->auth_dao->get_user_by_email($email);
 
@@ -45,13 +40,19 @@ class AuthService extends BaseService {
             return ['success' => false, 'error' => 'Email already registered.'];
         }
 
-        $entity['password'] = password_hash($entity['password'], PASSWORD_BCRYPT);
+        $userEntity = [
+            'name' => $name,
+            'username' => $username,
+            'email' => $email,
+            'password' => password_hash($entity['password'], PASSWORD_BCRYPT),
+            'role' => $role
+        ];
 
-        $entity = parent::add($entity);
+        $created = parent::add($userEntity);
 
-        unset($entity['password']);
+        unset($created['password']);
         
-        return ['success' => true, 'data' => $entity];  
+        return ['success' => true, 'data' => $created];  
                    
     }
 

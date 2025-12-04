@@ -21,6 +21,11 @@ Flight::route('GET /courses', function () use ($courseService) {
   Flight::json($courseService->get_all_courses());
 });
 
+Flight::route('GET /courses/public', function () use ($courseService) {
+  Flight::auth();
+  Flight::json($courseService->get_all_courses());
+});
+
 /**
  * @OA\Get(
  *   path="/courses/{id}",

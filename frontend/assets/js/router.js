@@ -33,6 +33,18 @@ class Router {
       .then((response) => response.text())
       .then((html) => {
         this.rootElem.innerHTML = html;
+        const hash = htmlName.replace('.html', '');
+        if (typeof UserService !== 'undefined') {
+          if (hash === 'login') {
+            UserService.init();
+          } else if (hash === 'register') {
+            UserService.initRegister();
+          } else if (hash === 'formsAdmin') {
+            UserService.initAdminPanel();
+          } else if (hash === 'courses') {
+            UserService.initCourses();
+          }
+        }
       })
       .catch((error) => console.error('Error loading route:', error));
   }
