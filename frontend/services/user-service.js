@@ -25,11 +25,11 @@ let UserService = {
     }
   },
 
-  initRegister: function () {
+  initRegister: function() {
     const $form = $("form").first();
     if (!$form.length) return;
 
-    $form.on("submit", function (e) {
+    $form.on("submit", function(e) {
       e.preventDefault();
       const formData = new FormData(e.target);
       let entity = Object.fromEntries(formData.entries());
@@ -51,11 +51,11 @@ let UserService = {
       RestClient.post(
         "auth/register",
         entity,
-        function () {
+        function() {
           toastr.success("Registration successful! Please log in.");
           window.location.hash = "#login";
         },
-        function (XMLHttpRequest) {
+        function(XMLHttpRequest) {
           const message =
             (XMLHttpRequest &&
               (XMLHttpRequest.responseJSON &&
@@ -71,7 +71,7 @@ let UserService = {
     RestClient.post(
       "auth/login",
       entity,
-      function (result) {
+      function(result) {
         console.log(result);
         if (result && result.data && result.data.token) {
           localStorage.setItem("user_token", result.data.token);
@@ -80,13 +80,13 @@ let UserService = {
             UserService.generateMenuItems();
           }
           window.location.hash = "#courses";
-        } 
-        
+        }
+
         else {
           toastr.error("Invalid login response from server");
         }
       },
-      function (XMLHttpRequest) {
+      function(XMLHttpRequest) {
         const message =
           (XMLHttpRequest &&
             (XMLHttpRequest.responseJSON &&
@@ -112,12 +112,12 @@ let UserService = {
     window.location.hash = "#home";
   },
 
-  initAdminPanel: function () {
+  initAdminPanel: function() {
     if (typeof Utils === "undefined") return;
 
     if ($("#courses-table").length) {
       CourseService.getAllAdmin(
-        function (courses) {
+        function(courses) {
           if (!Array.isArray(courses)) courses = [];
           const columns = [
             { title: "ID", data: "id" },
@@ -127,7 +127,7 @@ let UserService = {
           ];
           Utils.datatable("courses-table", columns, courses);
         },
-        function (error) {
+        function(error) {
           toastr.error("Failed to load courses.");
           const columns = [
             { title: "ID", data: "id" },
@@ -142,7 +142,7 @@ let UserService = {
 
     if ($("#skills-table").length) {
       SkillService.getAll(
-        function (skills) {
+        function(skills) {
           if (!Array.isArray(skills)) skills = [];
           const columns = [
             { title: "ID", data: "id" },
@@ -152,7 +152,7 @@ let UserService = {
           ];
           Utils.datatable("skills-table", columns, skills);
         },
-        function (error) {
+        function(error) {
           toastr.error("Failed to load skills.");
           const columns = [
             { title: "ID", data: "id" },
@@ -167,7 +167,7 @@ let UserService = {
 
     if ($("#badges-table").length) {
       BadgeService.getAll(
-        function (badges) {
+        function(badges) {
           if (!Array.isArray(badges)) badges = [];
           const columns = [
             { title: "ID", data: "id" },
@@ -177,7 +177,7 @@ let UserService = {
           ];
           Utils.datatable("badges-table", columns, badges);
         },
-        function (error) {
+        function(error) {
           toastr.error("Failed to load badges.");
           const columns = [
             { title: "ID", data: "id" },
@@ -238,7 +238,7 @@ let UserService = {
     CategoryService.getAll(function(categories) {
       const categoryFilter = $("#category-filter");
       const createCategorySelect = $("#create-course-category");
-      
+
       categories.forEach(function(cat) {
         categoryFilter.append(`<option value="${cat.id}">${cat.name}</option>`);
         createCategorySelect.append(`<option value="${cat.id}">${cat.name}</option>`);
@@ -256,8 +256,8 @@ let UserService = {
 
       courses.forEach(function(course) {
         const canDelete = isAdmin || (isUser && course.instructor_id == user.id);
-        const deleteBtn = canDelete 
-          ? `<button onclick="UserService.deleteCourse(${course.id})" class="mt-2 bg-red-500 hover:bg-red-600 text-white py-1 px-4 rounded-md text-sm">Delete</button>`
+        const deleteBtn = canDelete
+          ? `<button onclick="UserService.deleteCourse(${course.id})" class="mt-2 bg-red-500 hover:bg-red-600 hover:cursor-pointer text-white py-1 px-4 rounded-md text-sm">Delete</button>`
           : '';
 
         const card = `
@@ -284,7 +284,7 @@ let UserService = {
           const search = $(this).val().toLowerCase();
           const filtered = courses.filter(function(c) {
             return (c.title && c.title.toLowerCase().includes(search)) ||
-                   (c.description && c.description.toLowerCase().includes(search));
+              (c.description && c.description.toLowerCase().includes(search));
           });
           renderCourses(filtered);
         });
@@ -303,7 +303,7 @@ let UserService = {
           if (search) {
             filtered = filtered.filter(function(c) {
               return (c.title && c.title.toLowerCase().includes(search)) ||
-                     (c.description && c.description.toLowerCase().includes(search));
+                (c.description && c.description.toLowerCase().includes(search));
             });
           }
 
@@ -346,8 +346,8 @@ let UserService = {
           UserService.initCourses();
         },
         function(error) {
-          const msg = error.responseJSON && error.responseJSON.message 
-            ? error.responseJSON.message 
+          const msg = error.responseJSON && error.responseJSON.message
+            ? error.responseJSON.message
             : "Failed to create course.";
           toastr.error(msg);
         }
@@ -365,8 +365,8 @@ let UserService = {
         UserService.initCourses();
       },
       function(error) {
-        const msg = error.responseJSON && error.responseJSON.message 
-          ? error.responseJSON.message 
+        const msg = error.responseJSON && error.responseJSON.message
+          ? error.responseJSON.message
           : "Failed to delete course.";
         toastr.error(msg);
       }
