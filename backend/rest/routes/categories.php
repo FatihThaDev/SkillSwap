@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../services/CategoryService.php';
+require_once __DIR__ . '/../../data/Roles.php';
 
 use OpenApi\Annotations as OA;
 
@@ -15,6 +16,13 @@ $categoryService = new CategoryService();
  * )
  */
 Flight::route('GET /categories', function () use ($categoryService) {
+  Flight::auth();
+  Flight::auth_middleware()->authorizeRoles([Roles::ADMIN]);
+  Flight::json($categoryService->get_all_categories());
+});
+
+Flight::route('GET /categories/public', function () use ($categoryService) {
+  Flight::auth();
   Flight::json($categoryService->get_all_categories());
 });
 

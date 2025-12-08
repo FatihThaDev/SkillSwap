@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../services/BadgeService.php';
+require_once __DIR__ . '/../../data/Roles.php';
 use OpenApi\Annotations as OA;
 
 $badgeService = new BadgeService();
@@ -18,6 +19,8 @@ $badgeService = new BadgeService();
  * )
  */
 Flight::route('GET /badges', function() use ($badgeService) {
+  Flight::auth();
+  Flight::auth_middleware()->authorizeRoles([Roles::ADMIN]);
   Flight::json($badgeService->get_all_badges());
 });
 
@@ -42,6 +45,8 @@ Flight::route('GET /badges', function() use ($badgeService) {
  * )
  */
 Flight::route('GET /badges/@id', function($id) use ($badgeService) {
+  Flight::auth();
+  Flight::auth_middleware()->authorizeRoles([Roles::ADMIN]);
   Flight::json($badgeService->get_badge_by_id($id));
 });
 
@@ -65,6 +70,8 @@ Flight::route('GET /badges/@id', function($id) use ($badgeService) {
  * )
  */
 Flight::route('GET /courses/@course_id/badges', function($course_id) use ($badgeService) {
+  Flight::auth();
+  Flight::auth_middleware()->authorizeRoles([Roles::ADMIN]);
   Flight::json($badgeService->get_badges_by_course($course_id));
 });
 
@@ -86,6 +93,8 @@ Flight::route('GET /courses/@course_id/badges', function($course_id) use ($badge
  * )
  */
 Flight::route('POST /badges', function() use ($badgeService) {
+  Flight::auth();
+  Flight::auth_middleware()->authorizeRoles([Roles::ADMIN]);
   $data = Flight::request()->data->getData();
   Flight::json($badgeService->create_badge($data));
 });
@@ -116,6 +125,8 @@ Flight::route('POST /badges', function() use ($badgeService) {
  * )
  */
 Flight::route('PUT /badges/@id', function($id) use ($badgeService) {
+  Flight::auth();
+  Flight::auth_middleware()->authorizeRoles([Roles::ADMIN]);
   $data = Flight::request()->data->getData();
   Flight::json($badgeService->update_badge($id, $data));
 });
@@ -137,6 +148,8 @@ Flight::route('PUT /badges/@id', function($id) use ($badgeService) {
  * )
  */
 Flight::route('DELETE /badges/@id', function($id) use ($badgeService) {
+  Flight::auth();
+  Flight::auth_middleware()->authorizeRoles([Roles::ADMIN]);
   Flight::json($badgeService->delete_badge($id));
 });
 

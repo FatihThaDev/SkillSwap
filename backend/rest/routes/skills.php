@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../services/SkillService.php';
+require_once __DIR__ . '/../../data/Roles.php';
 
 use OpenApi\Annotations as OA;
 
@@ -19,6 +20,8 @@ $skillService = new SkillService();
  * )
  */
 Flight::route('GET /skills', function () use ($skillService) {
+  Flight::auth();
+  Flight::auth_middleware()->authorizeRoles([Roles::ADMIN]);
   Flight::json($skillService->get_all_skills());
 });
 
@@ -39,6 +42,8 @@ Flight::route('GET /skills', function () use ($skillService) {
  * )
  */
 Flight::route('GET /skills/@id', function ($id) use ($skillService) {
+  Flight::auth();
+  Flight::auth_middleware()->authorizeRoles([Roles::ADMIN]);
   Flight::json($skillService->get_skill_by_id($id));
 });
 
@@ -59,6 +64,8 @@ Flight::route('GET /skills/@id', function ($id) use ($skillService) {
  * )
  */
 Flight::route('GET /users/@user_id/skills', function ($user_id) use ($skillService) {
+  Flight::auth();
+  Flight::auth_middleware()->authorizeRoles([Roles::ADMIN]);
   Flight::json($skillService->get_skills_by_user($user_id));
 });
 
@@ -76,6 +83,8 @@ Flight::route('GET /users/@user_id/skills', function ($user_id) use ($skillServi
  * )
  */
 Flight::route('POST /skills', function () use ($skillService) {
+  Flight::auth();
+  Flight::auth_middleware()->authorizeRoles([Roles::USER]);
   $data = Flight::request()->data->getData();
   Flight::json($skillService->create_skill($data));
 });
@@ -120,5 +129,7 @@ Flight::route('PUT /skills/@id', function ($id) use ($skillService) {
  * )
  */
 Flight::route('DELETE /skills/@id', function ($id) use ($skillService) {
+  Flight::auth();
+  Flight::auth_middleware()->authorizeRoles([Roles::ADMIN]);
   Flight::json($skillService->delete_skill($id));
 });
