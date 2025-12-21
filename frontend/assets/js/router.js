@@ -28,7 +28,8 @@ class Router {
   }
 
   goToRoute(htmlName) {
-    const url = 'pages/' + htmlName;
+    const basePath = window.location.hostname === 'localhost' ? '' : '/frontend';
+    const url = basePath + '/pages/' + htmlName;
     fetch(url)
       .then((response) => response.text())
       .then((html) => {

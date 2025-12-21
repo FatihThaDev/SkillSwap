@@ -10,17 +10,20 @@ class BaseDao
   {
     $this->table_name = $table_name;
     try {
+      $dsn = "mysql:host=" . Config::DB_HOST() . ";dbname=" . Config::DB_NAME() . ";port=" . Config::DB_PORT() . ";charset=utf8mb4";
       $this->connection = new PDO(
-        "mysql:host=" . Config::DB_HOST() . ";dbname=" . Config::DB_NAME() . ";port=" . Config::DB_PORT(),
+        $dsn,
         Config::DB_USER(),
         Config::DB_PASSWORD(),
         [
           PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-          PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+          PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+          PDO::ATTR_TIMEOUT => 5
         ]
       );
     } catch (PDOException $e) {
-      throw $e;
+      error_log("Database connection error: " . $e->getMessage());
+      throw new Exception("Database connection failed: " . $e->getMessage());
     }
   }
 

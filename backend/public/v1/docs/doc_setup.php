@@ -16,7 +16,7 @@
  * )
  * 
  * @OA\Server(
- *     url="prodserver",
+ *     url="https://skillswap.page.gd/backend",
  *     description="Production API server"
  * )
  * 

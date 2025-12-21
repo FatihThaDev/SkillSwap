@@ -9,11 +9,29 @@ let UserService = {
       return;
     }
 
-    const $form = $("form").first();
-    if ($form.length) {
-      $form.on("submit", function(e) {
-        e.preventDefault();
-        const formData = new FormData(e.target);
+    $("#login-form").validate({
+      rules: {
+        username: {
+          required: true,
+          email: true
+        },
+        password: {
+          required: true,
+          minlength: 3
+        }
+      },
+      messages: {
+        username: {
+          required: "Please enter your email",
+          email: "Please enter a valid email address"
+        },
+        password: {
+          required: "Please enter your password",
+          minlength: "Password must be at least 3 characters"
+        }
+      },
+      submitHandler: function(form) {
+        const formData = new FormData(form);
         let entity = Object.fromEntries(formData.entries());
 
         if (entity.username && !entity.email) {
@@ -21,8 +39,8 @@ let UserService = {
         }
 
         UserService.login(entity);
-      });
-    }
+      }
+    });
   },
 
   initRegister: function() {
