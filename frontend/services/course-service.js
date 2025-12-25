@@ -1,12 +1,12 @@
 let CourseService = {
-  getAll: function (onSuccess, onError) {
+  getAll: function(onSuccess, onError) {
     RestClient.get(
       "courses/public",
-      function (response) {
+      function(response) {
         const courses = Array.isArray(response) ? response : (response.data || []);
         if (onSuccess) onSuccess(courses);
       },
-      function (jqXHR) {
+      function(jqXHR) {
         if (onError) {
           onError(jqXHR);
         } else {
@@ -15,15 +15,15 @@ let CourseService = {
       }
     );
   },
-  
-  getAllAdmin: function (onSuccess, onError) {
+
+  getAllAdmin: function(onSuccess, onError) {
     RestClient.get(
       "courses",
-      function (response) {
+      function(response) {
         const courses = Array.isArray(response) ? response : (response.data || []);
         if (onSuccess) onSuccess(courses);
       },
-      function (jqXHR) {
+      function(jqXHR) {
         if (onError) {
           onError(jqXHR);
         } else {
@@ -32,15 +32,15 @@ let CourseService = {
       }
     );
   },
-  
-  create: function (courseData, onSuccess, onError) {
+
+  create: function(courseData, onSuccess, onError) {
     RestClient.post(
       "courses",
       courseData,
-      function (response) {
+      function(response) {
         if (onSuccess) onSuccess(response);
       },
-      function (jqXHR) {
+      function(jqXHR) {
         if (onError) {
           onError(jqXHR);
         } else {
@@ -49,15 +49,15 @@ let CourseService = {
       }
     );
   },
-  
-  delete: function (courseId, onSuccess, onError) {
+
+  delete: function(courseId, onSuccess, onError) {
     RestClient.delete(
       "courses/" + courseId,
       null,
-      function (response) {
+      function(response) {
         if (onSuccess) onSuccess(response);
       },
-      function (jqXHR) {
+      function(jqXHR) {
         if (onError) {
           onError(jqXHR);
         } else {

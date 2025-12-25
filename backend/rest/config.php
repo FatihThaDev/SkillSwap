@@ -8,7 +8,7 @@ class Config
 {
   public static function DB_NAME()
   {
-    return 'DBName'; // enter your database name here
+    return 'if0_40734021_skillswap'; // enter your database name here
   }
   public static function DB_PORT()
   {
@@ -16,19 +16,19 @@ class Config
   }
   public static function DB_USER()
   {
-    return 'user123'; // add your database username here
+    return 'if0_40734021'; // add your database username here
   }
   public static function DB_PASSWORD()
   {
-    return 'password123'; // add your database password here
+    return 'FcFbSV7pUEsOm68'; // add your database password here
   }
   public static function DB_HOST()
   {
-    return '127.0.0.1';
+    return 'sql305.infinityfree.com';
   }
 
   public static function JWT_SECRET()
   {
-    return 'your_key_string';
+    return 'P4IUvoPc3P9MErMl3Fbu+p/YsLQfvSVDxRvWRpyI0p4=';
   }
 }

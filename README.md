@@ -50,3 +50,10 @@ Built with **HTML, CSS, JavaScript (Frontend)** and **PHP with MySQL (Backend)**
 This project was developed for the course ``` IT 2001 - Web Programming``` to demonstrate full-stack development knowledge using HTML, CSS and JavaScript for frontend, and PHP with MySQL for backend development.
 
 ---
+
+### Website Link:
+- https://skillswap.page.gd/
+
+### Important Note:
+
+**_When you log in and arrive to courses page, you need to refresh the site a lot of times for courses and categories to appear, because the hosting provider doesn't allow for a lot of persistent database connections, so the performance is not very stable._**
